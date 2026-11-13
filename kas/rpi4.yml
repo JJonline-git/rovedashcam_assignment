@@ -46,9 +46,5 @@ local_conf_header:
     BB_NUMBER_THREADS = "4"
     PARALLEL_MAKE = "-j 4"
     INHERIT += "rm_work"
-  sstate-mirror: |
-    # Reuse prebuilt artifacts from the Yocto project's public cache.
-    BB_HASHSERVE_UPSTREAM = "wss://hashserv.yoctoproject.org/ws"
-    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
-    BB_HASHSERVE = "auto"
-    BB_SIGNATURE_HANDLER = "OEEquivHash"
+  # NOTE: the public Yocto sstate mirror was tried first and removed: from this network
+  # yoctoproject.org downloads ran at 40-70 KB/s, slower than compiling locally.
