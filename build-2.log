@@ -1,0 +1,54 @@
+2026-11-13 22:23:11 - INFO     - kas 5.5 started on Ubuntu jammy
+2026-11-13 22:23:11 - INFO     - Using /home/jen/Interview/Rove-12-11-2026/rove-isp-channel as root for repository rove-isp-channel
+2026-11-13 22:23:11 - INFO     - Repository poky already contains 6b7c1066f778db5a6b3e35400617b10342988fa8 as commit
+2026-11-13 22:23:11 - INFO     - Repository meta-openembedded already contains 2db6aece32c7f8ebf6015b468e1b4e21de072e3b as commit
+2026-11-13 22:23:11 - INFO     - Repository meta-raspberrypi already contains 018d44467c4f09eb63f8ea5e86e85d755250cf89 as commit
+2026-11-13 22:23:11 - INFO     - Repository poky checked out to 6b7c1066f778db5a6b3e35400617b10342988fa8
+2026-11-13 22:23:11 - INFO     - Repository meta-openembedded checked out to 2db6aece32c7f8ebf6015b468e1b4e21de072e3b
+2026-11-13 22:23:11 - INFO     - Repository meta-raspberrypi checked out to 018d44467c4f09eb63f8ea5e86e85d755250cf89
+2026-11-13 22:24:11 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:24:11 - INFO     - NOTE: No reply from server in 30s (for command setFeatures at 22:23:41.725897)
+2026-11-13 22:24:11 - INFO     - NOTE: Retrying server connection (#1)... (22:24:11.756282)
+2026-11-13 22:25:11 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:25:11 - INFO     - NOTE: No reply from server in 30s (for command setFeatures at 22:24:41.786116)
+2026-11-13 22:25:11 - INFO     - NOTE: Retrying server connection (#2)... (22:25:11.815798)
+2026-11-13 22:25:11 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:25:11 - INFO     - NOTE: Retrying server connection (#3)... (Traceback (most recent call last):
+2026-11-13 22:25:11 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/main.py", line 489, in setup_bitbake
+2026-11-13 22:25:11 - INFO     - server_connection = bb.server.process.connectProcessServer(sockname, featureset)
+2026-11-13 22:25:11 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/server/process.py", line 708, in connectProcessServer
+2026-11-13 22:25:11 - INFO     - sock.connect(os.path.basename(sockname))
+2026-11-13 22:25:11 - INFO     - BlockingIOError: [Errno 11] Resource temporarily unavailable
+2026-11-13 22:25:11 - INFO     - , 22:25:11.817159)
+2026-11-13 22:25:11 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:25:11 - INFO     - NOTE: Retrying server connection (#4)... (Traceback (most recent call last):
+2026-11-13 22:25:11 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/main.py", line 489, in setup_bitbake
+2026-11-13 22:25:11 - INFO     - server_connection = bb.server.process.connectProcessServer(sockname, featureset)
+2026-11-13 22:25:11 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/server/process.py", line 708, in connectProcessServer
+2026-11-13 22:25:11 - INFO     - sock.connect(os.path.basename(sockname))
+2026-11-13 22:25:11 - INFO     - BlockingIOError: [Errno 11] Resource temporarily unavailable
+2026-11-13 22:25:11 - INFO     - , 22:25:11.817815)
+2026-11-13 22:25:16 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:25:16 - INFO     - NOTE: Retrying server connection (#5)... (Traceback (most recent call last):
+2026-11-13 22:25:16 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/main.py", line 489, in setup_bitbake
+2026-11-13 22:25:16 - INFO     - server_connection = bb.server.process.connectProcessServer(sockname, featureset)
+2026-11-13 22:25:16 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/server/process.py", line 708, in connectProcessServer
+2026-11-13 22:25:16 - INFO     - sock.connect(os.path.basename(sockname))
+2026-11-13 22:25:16 - INFO     - BlockingIOError: [Errno 11] Resource temporarily unavailable
+2026-11-13 22:25:16 - INFO     - , 22:25:16.823965)
+2026-11-13 22:25:21 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:25:21 - INFO     - NOTE: Retrying server connection (#6)... (Traceback (most recent call last):
+2026-11-13 22:25:21 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/main.py", line 489, in setup_bitbake
+2026-11-13 22:25:21 - INFO     - server_connection = bb.server.process.connectProcessServer(sockname, featureset)
+2026-11-13 22:25:21 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/server/process.py", line 708, in connectProcessServer
+2026-11-13 22:25:21 - INFO     - sock.connect(os.path.basename(sockname))
+2026-11-13 22:25:21 - INFO     - BlockingIOError: [Errno 11] Resource temporarily unavailable
+2026-11-13 22:25:21 - INFO     - , 22:25:21.830422)
+2026-11-13 22:25:26 - INFO     - NOTE: Reconnecting to bitbake server...
+2026-11-13 22:25:26 - INFO     - NOTE: Retrying server connection (#7)... (Traceback (most recent call last):
+2026-11-13 22:25:26 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/main.py", line 489, in setup_bitbake
+2026-11-13 22:25:26 - INFO     - server_connection = bb.server.process.connectProcessServer(sockname, featureset)
+2026-11-13 22:25:26 - INFO     - File "/home/jen/Interview/Rove-12-11-2026/rove-isp-channel/poky/bitbake/lib/bb/server/process.py", line 708, in connectProcessServer
+2026-11-13 22:25:26 - INFO     - sock.connect(os.path.basename(sockname))
+2026-11-13 22:25:26 - INFO     - BlockingIOError: [Errno 11] Resource temporarily unavailable
+2026-11-13 22:25:26 - INFO     - , 22:25:26.836917)

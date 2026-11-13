@@ -1,0 +1,37 @@
+2026-11-13 22:05:31 - INFO     - kas 5.5 started on Ubuntu jammy
+2026-11-13 22:05:31 - INFO     - Using /home/jen/Interview/Rove-12-11-2026/rove-isp-channel as root for repository rove-isp-channel
+2026-11-13 22:05:31 - INFO     - Repository poky already contains 6b7c1066f778db5a6b3e35400617b10342988fa8 as commit
+2026-11-13 22:05:31 - INFO     - Repository meta-openembedded already contains 2db6aece32c7f8ebf6015b468e1b4e21de072e3b as commit
+2026-11-13 22:05:31 - INFO     - Repository meta-raspberrypi already contains 018d44467c4f09eb63f8ea5e86e85d755250cf89 as commit
+2026-11-13 22:05:32 - INFO     - Repository poky checked out to 6b7c1066f778db5a6b3e35400617b10342988fa8
+2026-11-13 22:05:32 - INFO     - Repository meta-openembedded checked out to 2db6aece32c7f8ebf6015b468e1b4e21de072e3b
+2026-11-13 22:05:32 - INFO     - Repository meta-raspberrypi checked out to 018d44467c4f09eb63f8ea5e86e85d755250cf89
+2026-11-13 22:05:34 - INFO     - WARNING: BB_HASHSERVE_UPSTREAM is not valid, unable to connect hash equivalence server at 'wss://hashserv.yoctoproject.org/ws': ModuleNotFoundError("No module named 'websockets'")
+2026-11-13 22:05:34 - INFO     - Loading cache...done.
+2026-11-13 22:05:34 - INFO     - Loaded 0 entries from dependency cache.
+2026-11-13 22:07:50 - INFO     - Parsing recipes...done.
+2026-11-13 22:07:50 - INFO     - Parsing of 2847 .bb files complete (0 cached, 2847 parsed). 4764 targets, 690 skipped, 0 masked, 0 errors.
+2026-11-13 22:07:50 - INFO     - NOTE: Resolving any missing task queue dependencies
+2026-11-13 22:07:52 - INFO     - 
+2026-11-13 22:07:52 - INFO     - Build Configuration:
+2026-11-13 22:07:52 - INFO     - BB_VERSION           = "2.8.1"
+2026-11-13 22:07:52 - INFO     - BUILD_SYS            = "x86_64-linux"
+2026-11-13 22:07:52 - INFO     - NATIVELSBSTRING      = "ubuntu-22.04"
+2026-11-13 22:07:52 - INFO     - TARGET_SYS           = "aarch64-poky-linux"
+2026-11-13 22:07:52 - INFO     - MACHINE              = "raspberrypi4-64"
+2026-11-13 22:07:52 - INFO     - DISTRO               = "isp"
+2026-11-13 22:07:52 - INFO     - DISTRO_VERSION       = "5.0.21"
+2026-11-13 22:07:52 - INFO     - TUNE_FEATURES        = "aarch64 crc cortexa72"
+2026-11-13 22:07:52 - INFO     - TARGET_FPU           = ""
+2026-11-13 22:07:52 - INFO     - meta-multimedia
+2026-11-13 22:07:52 - INFO     - meta-networking
+2026-11-13 22:07:52 - INFO     - meta-oe
+2026-11-13 22:07:52 - INFO     - meta-python          = "scarthgap:2db6aece32c7f8ebf6015b468e1b4e21de072e3b"
+2026-11-13 22:07:52 - INFO     - meta-raspberrypi     = "scarthgap:018d44467c4f09eb63f8ea5e86e85d755250cf89"
+2026-11-13 22:07:52 - INFO     - meta
+2026-11-13 22:07:52 - INFO     - meta-poky            = "scarthgap:6b7c1066f778db5a6b3e35400617b10342988fa8"
+2026-11-13 22:07:52 - INFO     - meta-isp-assignment  = "main:fc696ad014451173b147ab11ce72bdd36d43bef5"
+2026-11-13 22:07:52 - INFO     - 
+2026-11-13 22:07:52 - INFO     - NOTE: Fetching uninative binary shim http://downloads.yoctoproject.org/releases/uninative/5.1/x86_64-nativesdk-libc-5.1.tar.xz;sha256sum=2b63a078c26535e0786e87f81ae69509df30f4dce40693004c527bd5e4ab2b85 (will check PREMIRRORS first)
+2026-11-13 22:17:52 - INFO     - Initialising tasks...Checking sstate mirror object availability...Bitbake still alive (no events for 600s). Active tasks:
+2026-11-13 22:23:00 - ERROR    - kas execution cancelled

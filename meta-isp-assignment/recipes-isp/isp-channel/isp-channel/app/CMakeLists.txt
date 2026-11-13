@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
-project(isp-channel LANGUAGES CXX)
+# C for the application; C++ only for camera.cpp (libcamera has no C API).
+project(isp-channel LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)          # libcamera's headers need C++17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# All dependencies are found through pkg-config (works the same natively and in the Yocto sysroot).
+# Dependencies via pkg-config: works natively and inside the Yocto sysroot.
 find_package(PkgConfig REQUIRED)
 find_package(Threads REQUIRED)
 pkg_check_modules(LIBCAMERA REQUIRED IMPORTED_TARGET libcamera)
@@ -13,12 +15,11 @@ pkg_check_modules(GST REQUIRED IMPORTED_TARGET
 pkg_check_modules(PNG REQUIRED IMPORTED_TARGET libpng)
 
 add_executable(isp-channel
-    src/main.cpp
-    src/camera_channel.cpp
-    src/encoder.cpp
-    src/snapshot.cpp
-    src/mapped_buffer.cpp
-    src/stats.cpp)
+    src/main.c
+    src/encoder.c
+    src/snapshot.c
+    src/stats.c
+    src/camera.cpp)
 
 target_compile_options(isp-channel PRIVATE -Wall -Wextra)
 target_link_libraries(isp-channel PRIVATE

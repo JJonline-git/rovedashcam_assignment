@@ -1,49 +1,35 @@
-#pragma once
-// Measurements for the report: FPS and dropped frames per stream, CPU %, RSS memory,
-// and min/avg/max timings (app processing time, sensor-to-encoded latency).
-#include <algorithm>
-#include <cstdint>
-#include <limits>
-#include <string>
+/* stats.h - measurements for the report: FPS, drops, CPU %, RSS, timing min/avg/max. */
+#ifndef STATS_H
+#define STATS_H
+#include <stdint.h>
 
-// Counts frames and detects drops from the per-stream sequence number that libcamera
-// puts in FrameMetadata. A gap (seq jumps by more than 1) means the sensor produced a
-// frame we never received, usually because no Request was queued in time.
-struct StreamCounter {
-    uint64_t frames = 0, drops = 0, totalFrames = 0, totalDrops = 0;
-    int64_t lastSeq = -1;
+uint64_t monotonic_ns(void);
 
-    void onFrame(uint32_t seq)
-    {
-        if (lastSeq >= 0 && seq > lastSeq + 1) {
-            drops += seq - lastSeq - 1;
-            totalDrops += seq - lastSeq - 1;
-        }
-        lastSeq = seq;
-        frames++;
-        totalFrames++;
-    }
-    void resetWindow() { frames = drops = 0; }
+/* Drop detection: libcamera numbers every sensor frame (FrameMetadata::sequence).
+ * If the number jumps by more than 1, the frames in between were never delivered,
+ * usually because no Request was queued in time. */
+struct stream_counter {
+	uint64_t frames, drops;            /* current stats window */
+	uint64_t total_frames, total_drops;
+	int64_t last_seq;                  /* -1 = none yet */
 };
+void counter_init(struct stream_counter *c);
+void counter_frame(struct stream_counter *c, uint32_t seq);
+void counter_reset_window(struct stream_counter *c);
 
-struct TimingStat {
-    double minUs = std::numeric_limits<double>::max(), maxUs = 0, sumUs = 0;
-    uint64_t n = 0;
-
-    void add(double us) { minUs = std::min(minUs, us); maxUs = std::max(maxUs, us); sumUs += us; n++; }
-    std::string str() const;
-    void reset() { *this = TimingStat(); }
+struct timing {
+	double min_us, max_us, sum_us;
+	uint64_t n;
 };
+void timing_reset(struct timing *t);
+void timing_add(struct timing *t, double us);
+/* Formats "min X / avg Y / max Z us" into buf. */
+const char *timing_str(const struct timing *t, char *buf, int len);
 
-// CPU % of this process (user+sys) since the previous sample, and resident memory.
-class ProcSampler {
-public:
-    ProcSampler();
-    void sample(double &cpuPercent, long &rssKb);
-
-private:
-    uint64_t lastTicks_ = 0;
-    uint64_t lastWallNs_ = 0;
+/* CPU % of this process since the previous sample (100% = one core), and resident memory. */
+struct proc_sampler {
+	uint64_t last_ticks, last_ns;
 };
-
-uint64_t monotonicNs();
+void proc_init(struct proc_sampler *p);
+void proc_sample(struct proc_sampler *p, double *cpu_percent, long *rss_kb);
+#endif
