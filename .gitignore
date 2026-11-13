@@ -2,3 +2,4 @@ build/
 poky/
 meta-openembedded/
 meta-raspberrypi/
+build-*.log
