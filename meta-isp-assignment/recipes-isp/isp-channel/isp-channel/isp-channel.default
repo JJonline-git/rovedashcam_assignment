@@ -1,0 +1,4 @@
+# Arguments for isp-channel.service. Edit and run: systemctl restart isp-channel
+# See "isp-channel --help". Snapshot: systemctl kill -s USR1 isp-channel
+#                           or:       touch /run/isp-channel/snapshot
+ISP_CHANNEL_ARGS="--raw full --outdir /var/lib/isp-channel"

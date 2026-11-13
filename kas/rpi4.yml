@@ -1,0 +1,54 @@
+# kas project file: one command reproduces the whole build.
+#   kas build kas/rpi4.yml
+# Every layer is pinned to an exact commit so the build is reproducible.
+header:
+  version: 14
+
+machine: raspberrypi4-64
+distro: isp            # defined in meta-isp-assignment/conf/distro/isp.conf
+target: isp-image
+
+repos:
+  # This repository itself; its meta-isp-assignment layer is added to bblayers.conf.
+  rove-isp-channel:
+    layers:
+      meta-isp-assignment:
+
+  poky:
+    url: https://git.yoctoproject.org/poky
+    branch: scarthgap                  # Yocto 5.0 LTS
+    commit: 6b7c1066f778db5a6b3e35400617b10342988fa8
+    layers:
+      meta:
+      meta-poky:
+
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    branch: scarthgap
+    commit: 2db6aece32c7f8ebf6015b468e1b4e21de072e3b
+    layers:
+      meta-oe:
+      meta-python:
+      meta-multimedia:                 # provides the libcamera recipe
+      meta-networking:
+
+  meta-raspberrypi:
+    url: https://git.yoctoproject.org/meta-raspberrypi
+    branch: scarthgap
+    commit: 018d44467c4f09eb63f8ea5e86e85d755250cf89
+    layers:
+      .:
+
+# Only build-HOST tuning lives here (thread counts, caches, disk use).
+# Nothing that changes the target image is set here: that is all in the layer.
+local_conf_header:
+  host-tuning: |
+    BB_NUMBER_THREADS = "4"
+    PARALLEL_MAKE = "-j 4"
+    INHERIT += "rm_work"
+  sstate-mirror: |
+    # Reuse prebuilt artifacts from the Yocto project's public cache.
+    BB_HASHSERVE_UPSTREAM = "wss://hashserv.yoctoproject.org/ws"
+    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+    BB_HASHSERVE = "auto"
+    BB_SIGNATURE_HANDLER = "OEEquivHash"

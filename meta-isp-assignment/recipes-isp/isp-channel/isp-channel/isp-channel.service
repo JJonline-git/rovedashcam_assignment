@@ -1,0 +1,20 @@
+[Unit]
+Description=Camera ISP channel (libcamera -> bcm2835-isp -> H.264)
+# Camera/ISP/codec drivers are kernel modules loaded by udev; wait for udev to settle.
+After=systemd-udev-settle.service network.target
+Wants=systemd-udev-settle.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/isp-channel
+ExecStart=/usr/bin/isp-channel $ISP_CHANNEL_ARGS
+# systemd stop sends SIGTERM; the app sends EOS so the last MP4 segment is finalised.
+TimeoutStopSec=15
+Restart=on-failure
+RestartSec=3
+# Creates /var/lib/isp-channel (recordings) and /run/isp-channel (snapshot trigger file).
+StateDirectory=isp-channel
+RuntimeDirectory=isp-channel
+
+[Install]
+WantedBy=multi-user.target

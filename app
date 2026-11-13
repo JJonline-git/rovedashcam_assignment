@@ -1,0 +1,1 @@
+meta-isp-assignment/recipes-isp/isp-channel/isp-channel/app
