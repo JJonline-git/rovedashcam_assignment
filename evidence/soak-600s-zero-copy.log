@@ -1,0 +1,396 @@
+[0:05:13.167562190] [512]  INFO Camera camera_manager.cpp:327 libcamera v0.4.0+dirty (2026-11-13T20:01:03UTC)
+[0:05:13.206016135] [515]  WARN RPiSdn sdn.cpp:40 Using legacy SDN tuning - please consider moving SDN inside rpi.denoise
+[0:05:13.208647356] [515]  INFO RPI vc4.cpp:401 Registered camera /base/soc/i2c0mux/i2c@1/ov5647@36 to Unicam device /dev/media1 and ISP device /dev/media2
+[isp] found 1 camera(s)
+[isp]   /base/soc/i2c0mux/i2c@1/ov5647@36
+[isp] using ov5647
+[isp] supported controls (22):
+[isp]   AwbEnable                    [false..true]
+[isp]   ColourGains                  [0.000000..32.000000]
+[isp]   AwbMode                      [0..7]
+[isp]   ColourTemperature            [100..100000]
+[isp]   Saturation                   [0.000000..32.000000]
+[isp]   StatsOutputEnable            [false..true]
+[isp]   NoiseReductionMode           [0..4]
+[isp]   FrameDurationLimits          [33333..120000]
+[isp]   ScalerCrop                   [(0, 0)/0x0..(65535, 65535)/65535x65535]
+[isp]   Sharpness                    [0.000000..16.000000]
+[isp]   Brightness                   [-1.000000..1.000000]
+[isp]   AeConstraintMode             [0..3]
+[isp]   AeExposureMode               [0..3]
+[isp]   ExposureTime                 [0..66666]
+[isp]   AeFlickerMode                [0..1]
+[isp]   ExposureValue                [-8.000000..8.000000]
+[isp]   AeEnable                     [false..true]
+[isp]   AnalogueGain                 [1.000000..16.000000]
+[isp]   AeFlickerPeriod              [100..1000000]
+[isp]   Contrast                     [0.000000..32.000000]
+[isp]   AeMeteringMode               [0..3]
+[isp]   HdrMode                      [0..4]
+[isp] sensor modes (SGBRG10_CSI2P): 640x480 1296x972 1920x1080 2592x1944 
+[0:05:13.209393464] [512]  INFO Camera camera.cpp:1202 configuring streams: (0) 1920x1080-YUV420 (1) 1920x1080-SGBRG10_CSI2P
+[0:05:13.209746490] [515]  INFO RPI vc4.cpp:570 Sensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1920x1080-SGBRG10_1X10 - Selected unicam format: 1920x1080-pGAA
+[isp] stream 0: 1920x1080-YUV420 stride 1920 frameSize 3110400 buffers 6 colorspace sYCC
+[isp] stream 1: 1920x1080-SGBRG10_CSI2P stride 2400 frameSize 2592000 buffers 6 colorspace RAW
+[isp] 6 requests created
+[isp] gst pipeline: appsrc name=src is-live=true format=time do-timestamp=false ! v4l2h264enc name=enc output-io-mode=dmabuf-import extra-controls="controls,video_bitrate=8000000,h264_i_frame_period=30,repeat_sequence_header=1" ! video/x-h264,level=(string)4,profile=(string)high ! h264parse config-interval=-1 ! tee name=t t. ! queue ! splitmuxsink location=/root/soak/seg-%05d.mp4 max-size-time=60000000000 
+[isp] running: ov5647 1920x1080@30 raw=video zero-copy=yes
+[isp] [stats] vf 28.36 fps (drops 0) | raw 28.36 fps (drops 0) | cpu 14.6% | rss 19520 kB | enc rejects 0
+[isp] [stats] app processing min 104 / avg 158 / max 246 us | sensor->app min 41968 / avg 45738 / max 48571 us | sensor->encoded min 82697 / avg 89407 / max 114831 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.22 B 1.65 | 3553 K | lux 20
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19648 kB | enc rejects 0
+[isp] [stats] app processing min 90 / avg 157 / max 245 us | sensor->app min 40443 / avg 45744 / max 50540 us | sensor->encoded min 69443 / avg 88135 / max 94061 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.23 B 1.64 | 3576 K | lux 20
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19648 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 152 / max 290 us | sensor->app min 43899 / avg 45886 / max 49635 us | sensor->encoded min 78941 / avg 88863 / max 97594 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.23 B 1.63 | 3593 K | lux 20
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 89 / avg 161 / max 292 us | sensor->app min 42095 / avg 45977 / max 49564 us | sensor->encoded min 66288 / avg 88881 / max 94454 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.23 B 1.63 | 3607 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 164 / max 220 us | sensor->app min 44052 / avg 45900 / max 50290 us | sensor->encoded min 80023 / avg 89205 / max 93759 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.23 B 1.62 | 3622 K | lux 21
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 102 / avg 148 / max 209 us | sensor->app min 42512 / avg 45657 / max 49378 us | sensor->encoded min 82532 / avg 89072 / max 93785 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.62 | 3651 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 135 / max 225 us | sensor->app min 43577 / avg 45844 / max 49837 us | sensor->encoded min 80823 / avg 88937 / max 93824 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3665 K | lux 22
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 159 / max 237 us | sensor->app min 44048 / avg 45875 / max 51094 us | sensor->encoded min 79724 / avg 88784 / max 92914 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3655 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 158 / max 243 us | sensor->app min 44086 / avg 45731 / max 50519 us | sensor->encoded min 82183 / avg 89222 / max 93165 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3675 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 164 / max 278 us | sensor->app min 42593 / avg 45707 / max 49831 us | sensor->encoded min 79864 / avg 89031 / max 93070 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3764 K | lux 23
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 163 / max 270 us | sensor->app min 43733 / avg 45700 / max 50983 us | sensor->encoded min 80721 / avg 89146 / max 95418 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3673 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 104 / avg 152 / max 270 us | sensor->app min 43467 / avg 45734 / max 49179 us | sensor->encoded min 84435 / avg 89158 / max 93484 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3679 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 119 / avg 161 / max 282 us | sensor->app min 44305 / avg 45896 / max 51302 us | sensor->encoded min 79785 / avg 88740 / max 92339 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3678 K | lux 21
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 115 / avg 167 / max 372 us | sensor->app min 43221 / avg 45904 / max 50960 us | sensor->encoded min 77534 / avg 88736 / max 93132 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3691 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 165 / max 215 us | sensor->app min 43478 / avg 45725 / max 49954 us | sensor->encoded min 79592 / avg 88957 / max 92715 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3662 K | lux 22
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 148 / max 238 us | sensor->app min 43758 / avg 45643 / max 49444 us | sensor->encoded min 85225 / avg 89148 / max 93060 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.62 | 3647 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 99 / avg 146 / max 239 us | sensor->app min 41858 / avg 45815 / max 48898 us | sensor->encoded min 80221 / avg 88941 / max 94309 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3683 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 145 / max 262 us | sensor->app min 44342 / avg 45785 / max 50141 us | sensor->encoded min 79582 / avg 88716 / max 92896 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3683 K | lux 21
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 164 / max 304 us | sensor->app min 43673 / avg 45868 / max 51475 us | sensor->encoded min 74321 / avg 89081 / max 92301 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3662 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 158 / max 328 us | sensor->app min 43785 / avg 45836 / max 50267 us | sensor->encoded min 75627 / avg 88990 / max 94936 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3655 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 159 / max 233 us | sensor->app min 44401 / avg 45737 / max 49648 us | sensor->encoded min 79159 / avg 89134 / max 93511 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3673 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 105 / avg 162 / max 275 us | sensor->app min 43912 / avg 45806 / max 50172 us | sensor->encoded min 73411 / avg 88722 / max 93318 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3667 K | lux 21
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.2% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 161 / max 238 us | sensor->app min 44178 / avg 45813 / max 49012 us | sensor->encoded min 80231 / avg 89035 / max 93929 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3687 K | lux 22
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 163 / max 228 us | sensor->app min 42477 / avg 45759 / max 50264 us | sensor->encoded min 75761 / avg 89128 / max 93176 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3686 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 106 / avg 160 / max 232 us | sensor->app min 44237 / avg 45927 / max 50045 us | sensor->encoded min 79323 / avg 88856 / max 92392 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3700 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 101 / avg 160 / max 594 us | sensor->app min 44321 / avg 45748 / max 49519 us | sensor->encoded min 77751 / avg 88892 / max 93978 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3685 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 100 / avg 158 / max 226 us | sensor->app min 41928 / avg 45850 / max 50344 us | sensor->encoded min 78850 / avg 88905 / max 92799 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3663 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 150 / max 553 us | sensor->app min 43562 / avg 45878 / max 51702 us | sensor->encoded min 76675 / avg 88896 / max 93654 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3681 K | lux 24
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 173 / max 616 us | sensor->app min 43845 / avg 46062 / max 52308 us | sensor->encoded min 79815 / avg 89231 / max 93489 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3714 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 141 / max 262 us | sensor->app min 43790 / avg 45808 / max 51104 us | sensor->encoded min 85099 / avg 89151 / max 93892 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3724 K | lux 21
+[isp] [stats] vf 29.98 fps (drops 0) | raw 29.98 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 158 / max 262 us | sensor->app min 43803 / avg 45829 / max 49709 us | sensor->encoded min 79457 / avg 88864 / max 93671 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3671 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 165 / max 273 us | sensor->app min 43294 / avg 46043 / max 52123 us | sensor->encoded min 77363 / avg 88726 / max 92268 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3729 K | lux 22
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 152 / max 217 us | sensor->app min 43780 / avg 45990 / max 50100 us | sensor->encoded min 79298 / avg 89187 / max 92806 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3682 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 105 / avg 155 / max 271 us | sensor->app min 43301 / avg 45811 / max 50165 us | sensor->encoded min 79759 / avg 89005 / max 96017 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3661 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 119 / avg 148 / max 219 us | sensor->app min 43708 / avg 45727 / max 49980 us | sensor->encoded min 86278 / avg 89313 / max 95247 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3678 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 160 / max 342 us | sensor->app min 44447 / avg 45928 / max 50949 us | sensor->encoded min 75473 / avg 88845 / max 92593 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3710 K | lux 21
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 161 / max 274 us | sensor->app min 44177 / avg 45846 / max 50232 us | sensor->encoded min 78561 / avg 88938 / max 93022 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3669 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 160 / max 254 us | sensor->app min 42793 / avg 45906 / max 49832 us | sensor->encoded min 78461 / avg 89025 / max 93818 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3695 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 115 / avg 158 / max 287 us | sensor->app min 43719 / avg 45858 / max 49842 us | sensor->encoded min 81759 / avg 89117 / max 93539 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3697 K | lux 20
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 156 / max 244 us | sensor->app min 44002 / avg 45935 / max 52423 us | sensor->encoded min 77226 / avg 88808 / max 93631 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3690 K | lux 21
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 105 / avg 136 / max 220 us | sensor->app min 43409 / avg 45928 / max 50384 us | sensor->encoded min 80040 / avg 89032 / max 92897 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3751 K | lux 19
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 95 / avg 141 / max 211 us | sensor->app min 41986 / avg 45781 / max 50696 us | sensor->encoded min 78475 / avg 88618 / max 92345 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3758 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 158 / max 283 us | sensor->app min 43759 / avg 45980 / max 49887 us | sensor->encoded min 77920 / avg 88996 / max 93367 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3724 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 156 / max 267 us | sensor->app min 44147 / avg 45800 / max 50991 us | sensor->encoded min 78808 / avg 88844 / max 93097 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3739 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 143 / max 289 us | sensor->app min 44383 / avg 45961 / max 50622 us | sensor->encoded min 79975 / avg 88902 / max 95731 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.31 B 1.47 | 4110 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 108 / avg 157 / max 225 us | sensor->app min 43543 / avg 46030 / max 51314 us | sensor->encoded min 79786 / avg 88999 / max 93089 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.28 B 1.53 | 3938 K | lux 40
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 122 / avg 167 / max 272 us | sensor->app min 43755 / avg 45977 / max 48415 us | sensor->encoded min 85791 / avg 89426 / max 94563 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.34 B 1.47 | 4183 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 154 / max 230 us | sensor->app min 44351 / avg 45962 / max 51478 us | sensor->encoded min 75243 / avg 89081 / max 95065 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.56 | 3805 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 169 / max 884 us | sensor->app min 43801 / avg 46027 / max 50019 us | sensor->encoded min 80407 / avg 88967 / max 94566 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3748 K | lux 20
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 103 / avg 135 / max 219 us | sensor->app min 43907 / avg 45857 / max 50482 us | sensor->encoded min 77544 / avg 89093 / max 94091 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3774 K | lux 20
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 157 / max 270 us | sensor->app min 44272 / avg 45941 / max 49962 us | sensor->encoded min 78887 / avg 89160 / max 94031 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3755 K | lux 20
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 151 / max 236 us | sensor->app min 44149 / avg 45969 / max 49621 us | sensor->encoded min 75866 / avg 89410 / max 95660 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.29 B 1.51 | 3991 K | lux 15
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 118 / avg 144 / max 247 us | sensor->app min 44380 / avg 46016 / max 49431 us | sensor->encoded min 83218 / avg 89280 / max 96003 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.31 B 1.48 | 4097 K | lux 16
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 153 / max 279 us | sensor->app min 43352 / avg 45869 / max 48140 us | sensor->encoded min 80587 / avg 89189 / max 93483 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.27 B 1.54 | 3867 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 97 / avg 149 / max 254 us | sensor->app min 41871 / avg 46093 / max 51989 us | sensor->encoded min 77880 / avg 88929 / max 95076 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3780 K | lux 23
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 139 / max 248 us | sensor->app min 44282 / avg 45927 / max 50132 us | sensor->encoded min 76609 / avg 89195 / max 93893 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3768 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 163 / max 331 us | sensor->app min 43179 / avg 45892 / max 49861 us | sensor->encoded min 79476 / avg 89118 / max 94898 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3766 K | lux 22
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 121 / avg 168 / max 265 us | sensor->app min 43716 / avg 45896 / max 49933 us | sensor->encoded min 74693 / avg 89089 / max 97301 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3785 K | lux 24
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 158 / max 220 us | sensor->app min 43251 / avg 45885 / max 52161 us | sensor->encoded min 79378 / avg 89057 / max 93354 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3763 K | lux 21
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 121 / avg 163 / max 248 us | sensor->app min 43984 / avg 45830 / max 49542 us | sensor->encoded min 80883 / avg 89052 / max 94326 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3737 K | lux 23
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 156 / max 244 us | sensor->app min 44123 / avg 46122 / max 51032 us | sensor->encoded min 79325 / avg 88955 / max 93502 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3779 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 159 / max 239 us | sensor->app min 44092 / avg 45849 / max 50209 us | sensor->encoded min 79983 / avg 89194 / max 94909 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3743 K | lux 23
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 103 / avg 150 / max 278 us | sensor->app min 42908 / avg 45811 / max 49872 us | sensor->encoded min 78594 / avg 88808 / max 97998 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3762 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 144 / max 217 us | sensor->app min 42994 / avg 45800 / max 50118 us | sensor->encoded min 82796 / avg 89147 / max 94070 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3781 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 166 / max 268 us | sensor->app min 44229 / avg 45959 / max 50292 us | sensor->encoded min 79644 / avg 88950 / max 94433 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3744 K | lux 25
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 154 / max 241 us | sensor->app min 44364 / avg 45941 / max 51276 us | sensor->encoded min 78831 / avg 89080 / max 93200 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3756 K | lux 23
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 120 / avg 164 / max 704 us | sensor->app min 43414 / avg 46167 / max 50576 us | sensor->encoded min 78759 / avg 88823 / max 94182 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3742 K | lux 23
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 162 / max 284 us | sensor->app min 42250 / avg 45869 / max 51319 us | sensor->encoded min 80523 / avg 89331 / max 94187 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3712 K | lux 22
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 154 / max 354 us | sensor->app min 43610 / avg 45820 / max 50145 us | sensor->encoded min 79918 / avg 88835 / max 93773 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3732 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 154 / max 234 us | sensor->app min 43793 / avg 45847 / max 50023 us | sensor->encoded min 79711 / avg 88979 / max 93445 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3753 K | lux 21
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 104 / avg 152 / max 205 us | sensor->app min 44300 / avg 45906 / max 50333 us | sensor->encoded min 79765 / avg 88996 / max 95753 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3781 K | lux 23
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 164 / max 241 us | sensor->app min 43558 / avg 45916 / max 49857 us | sensor->encoded min 79662 / avg 89162 / max 95939 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3708 K | lux 24
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 163 / max 247 us | sensor->app min 42021 / avg 45844 / max 49562 us | sensor->encoded min 79287 / avg 88796 / max 93469 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3721 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 108 / avg 158 / max 316 us | sensor->app min 43883 / avg 45972 / max 50058 us | sensor->encoded min 75235 / avg 88744 / max 95349 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3757 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 106 / avg 160 / max 508 us | sensor->app min 44075 / avg 45840 / max 50123 us | sensor->encoded min 79868 / avg 89243 / max 94987 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3751 K | lux 20
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 152 / max 236 us | sensor->app min 42503 / avg 45797 / max 49677 us | sensor->encoded min 79207 / avg 89041 / max 93838 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3786 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 137 / max 247 us | sensor->app min 44240 / avg 45748 / max 50207 us | sensor->encoded min 86011 / avg 89166 / max 94408 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3766 K | lux 23
+[isp] [stats] vf 29.97 fps (drops 0) | raw 29.97 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 106 / avg 164 / max 302 us | sensor->app min 44394 / avg 45926 / max 50272 us | sensor->encoded min 79930 / avg 88928 / max 92885 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3748 K | lux 21
+[isp] [stats] vf 30.03 fps (drops 0) | raw 30.03 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 165 / max 263 us | sensor->app min 43702 / avg 45849 / max 50033 us | sensor->encoded min 78055 / avg 88933 / max 96100 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3755 K | lux 24
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 162 / max 312 us | sensor->app min 43851 / avg 46036 / max 51215 us | sensor->encoded min 75616 / avg 89138 / max 95291 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3751 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 138 / max 207 us | sensor->app min 43487 / avg 45791 / max 49019 us | sensor->encoded min 80847 / avg 89227 / max 94024 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3726 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 143 / max 205 us | sensor->app min 44013 / avg 45726 / max 51530 us | sensor->encoded min 81165 / avg 89039 / max 94866 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3710 K | lux 23
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 159 / max 239 us | sensor->app min 43350 / avg 45823 / max 51333 us | sensor->encoded min 80410 / avg 89012 / max 93432 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3733 K | lux 23
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.2% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 108 / avg 147 / max 259 us | sensor->app min 44349 / avg 45908 / max 50931 us | sensor->encoded min 75699 / avg 89187 / max 93518 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3740 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 104 / avg 147 / max 215 us | sensor->app min 43282 / avg 45836 / max 50493 us | sensor->encoded min 80000 / avg 89340 / max 93844 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3728 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.8% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 98 / avg 162 / max 293 us | sensor->app min 43143 / avg 45911 / max 50622 us | sensor->encoded min 79244 / avg 88906 / max 93664 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3731 K | lux 22
+[isp] [stats] vf 30.04 fps (drops 0) | raw 30.04 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 113 / avg 163 / max 340 us | sensor->app min 43398 / avg 45825 / max 50375 us | sensor->encoded min 78891 / avg 88915 / max 93887 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3748 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 163 / max 267 us | sensor->app min 43746 / avg 45810 / max 50108 us | sensor->encoded min 77099 / avg 89095 / max 95503 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3749 K | lux 21
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 105 / avg 164 / max 224 us | sensor->app min 43511 / avg 45806 / max 49847 us | sensor->encoded min 81084 / avg 89073 / max 93164 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3718 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 153 / max 252 us | sensor->app min 43731 / avg 45737 / max 49668 us | sensor->encoded min 78848 / avg 89101 / max 93282 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3708 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 14.2% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 106 / avg 154 / max 462 us | sensor->app min 43695 / avg 46008 / max 50881 us | sensor->encoded min 78966 / avg 88938 / max 92305 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3737 K | lux 23
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 148 / max 256 us | sensor->app min 44127 / avg 45823 / max 50289 us | sensor->encoded min 77069 / avg 88819 / max 92681 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.58 | 3768 K | lux 22
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 161 / max 231 us | sensor->app min 44298 / avg 45879 / max 50472 us | sensor->encoded min 80171 / avg 89109 / max 93043 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3742 K | lux 23
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 103 / avg 142 / max 228 us | sensor->app min 42385 / avg 45952 / max 49549 us | sensor->encoded min 77477 / avg 89321 / max 96286 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.27 B 1.55 | 3863 K | lux 24
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 102 / avg 143 / max 249 us | sensor->app min 43677 / avg 45859 / max 50551 us | sensor->encoded min 80182 / avg 89020 / max 93398 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3776 K | lux 22
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 14.2% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 154 / max 247 us | sensor->app min 43267 / avg 45937 / max 50279 us | sensor->encoded min 78711 / avg 89033 / max 93433 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3724 K | lux 25
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 147 / max 301 us | sensor->app min 44326 / avg 45868 / max 49581 us | sensor->encoded min 76531 / avg 89008 / max 96344 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3747 K | lux 23
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 115 / avg 142 / max 239 us | sensor->app min 43632 / avg 46088 / max 51007 us | sensor->encoded min 77007 / avg 89101 / max 93361 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3756 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 143 / max 256 us | sensor->app min 43969 / avg 45696 / max 50738 us | sensor->encoded min 79480 / avg 89130 / max 95504 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3785 K | lux 26
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 98 / avg 164 / max 410 us | sensor->app min 41971 / avg 46070 / max 50190 us | sensor->encoded min 78541 / avg 88938 / max 95446 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3735 K | lux 23
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 115 / avg 161 / max 244 us | sensor->app min 44445 / avg 45877 / max 50190 us | sensor->encoded min 79641 / avg 88921 / max 93347 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3727 K | lux 22
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 169 / max 622 us | sensor->app min 43941 / avg 46013 / max 50411 us | sensor->encoded min 79657 / avg 89033 / max 96653 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.62 | 3637 K | lux 19
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.5% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 103 / avg 163 / max 297 us | sensor->app min 43951 / avg 46145 / max 50187 us | sensor->encoded min 78804 / avg 89002 / max 93990 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.61 | 3664 K | lux 19
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 114 / avg 161 / max 251 us | sensor->app min 43960 / avg 45926 / max 49942 us | sensor->encoded min 81409 / avg 89124 / max 93844 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3713 K | lux 20
+[isp] [stats] vf 29.98 fps (drops 0) | raw 29.98 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 115 / avg 156 / max 248 us | sensor->app min 43849 / avg 45854 / max 50444 us | sensor->encoded min 80200 / avg 89109 / max 93717 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3743 K | lux 21
+[isp] [stats] vf 30.03 fps (drops 0) | raw 30.03 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 119 / avg 157 / max 392 us | sensor->app min 44025 / avg 45863 / max 49325 us | sensor->encoded min 80651 / avg 89213 / max 93090 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3728 K | lux 20
+[isp] [stats] vf 29.97 fps (drops 0) | raw 29.97 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 90 / avg 132 / max 215 us | sensor->app min 42577 / avg 45878 / max 51485 us | sensor->encoded min 80062 / avg 88897 / max 93157 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3688 K | lux 20
+[isp] [stats] vf 30.04 fps (drops 0) | raw 30.04 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 154 / max 283 us | sensor->app min 44094 / avg 45769 / max 49649 us | sensor->encoded min 79242 / avg 89254 / max 93949 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3697 K | lux 20
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 13.7% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 165 / max 313 us | sensor->app min 43930 / avg 45946 / max 52540 us | sensor->encoded min 78008 / avg 89192 / max 93002 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3712 K | lux 20
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 109 / avg 159 / max 230 us | sensor->app min 43426 / avg 45890 / max 51076 us | sensor->encoded min 79371 / avg 88777 / max 92803 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3744 K | lux 19
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 117 / avg 162 / max 246 us | sensor->app min 44074 / avg 45771 / max 49096 us | sensor->encoded min 80425 / avg 89014 / max 93072 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.58 | 3755 K | lux 20
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 111 / avg 150 / max 225 us | sensor->app min 43968 / avg 45875 / max 50512 us | sensor->encoded min 80214 / avg 89163 / max 93975 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3735 K | lux 20
+[isp] [stats] vf 30.01 fps (drops 0) | raw 30.01 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 88 / avg 166 / max 231 us | sensor->app min 41923 / avg 45960 / max 51557 us | sensor->encoded min 80335 / avg 89105 / max 94437 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3733 K | lux 22
+[isp] [stats] vf 29.98 fps (drops 0) | raw 29.98 fps (drops 0) | cpu 14.0% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 164 / max 377 us | sensor->app min 44229 / avg 45856 / max 50310 us | sensor->encoded min 79974 / avg 88974 / max 93677 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3792 K | lux 20
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.3% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 151 / max 640 us | sensor->app min 43412 / avg 46046 / max 52026 us | sensor->encoded min 79364 / avg 88798 / max 93683 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3787 K | lux 19
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 116 / avg 157 / max 308 us | sensor->app min 43945 / avg 45922 / max 50339 us | sensor->encoded min 79797 / avg 89146 / max 96471 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.26 B 1.57 | 3794 K | lux 20
+[isp] [stats] vf 30.02 fps (drops 0) | raw 30.02 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 110 / avg 152 / max 267 us | sensor->app min 43980 / avg 45927 / max 50156 us | sensor->encoded min 77598 / avg 89074 / max 93958 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.59 | 3731 K | lux 21
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 107 / avg 148 / max 216 us | sensor->app min 44310 / avg 45917 / max 49121 us | sensor->encoded min 80416 / avg 89132 / max 94075 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.24 B 1.60 | 3682 K | lux 20
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 14.1% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 101 / avg 153 / max 345 us | sensor->app min 41070 / avg 45943 / max 51323 us | sensor->encoded min 71443 / avg 88623 / max 94285 us
+[isp] [meta] exposure 33216 us | gain 8.00 | colour gains R 1.25 B 1.60 | 3704 K | lux 20
+[isp] stopping
+[isp] [summary] 600 s | vf frames 17995 drops 0 | raw frames 17995 drops 0 | rss baseline 19520 kB end 19776 kB (growth 256 kB)
