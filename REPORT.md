@@ -11,7 +11,7 @@
 | Source | this repository |
 | Image | `isp-image-raspberrypi4-64.rootfs-20261114053835.wic.bz2` (78 MB) |
 | Image SHA-256 | `95d029d490ffc213037a0c5ed14f983491b3a81c22a569982c8ebfb75d53bdb1` |
-| Image download | GitHub release of this repo (`v1.0`) |
+| Image download | GitHub release [`v1.0`](https://github.com/JJonline-git/rovedashcam_assignment/releases/tag/v1.0) |
 | Screen recording | linked from the GitHub release (2–3 min) |
 | Board logs | `evidence/` (soak test, feature tests, board snapshot, hardware fault trail) |
 

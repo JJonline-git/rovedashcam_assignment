@@ -50,7 +50,7 @@ pip3 install --user kas            # tested with kas 5.5
 **Build:**
 
 ```sh
-git clone <this repo> rove-isp-channel && cd rove-isp-channel
+git clone https://github.com/JJonline-git/rovedashcam_assignment.git rove-isp-channel && cd rove-isp-channel
 kas build kas/rpi4.yml
 ```
 
