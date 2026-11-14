@@ -1,0 +1,36 @@
+Hardware fault seen during bring-up, 2026-11-14. Two boards: Pi A = Pi 4 Rev 1.4
+(MAC e4:5f:..), Pi B = Pi 4 Rev 1.5 (MAC d8:3a:..). Same SD card image and same OV5647 module.
+Kept because it is the debugging trail described in REPORT.md section 6.
+
+== A. Pi A, first boot. Sensor probed over I2C, but no frames over CSI-2 (Unicam saw nothing for 1 s)
+INFO RPI vc4.cpp:401 Registered camera /base/soc/i2c0mux/i2c@1/ov5647@36 to Unicam device /dev/media4 and ISP device /dev/media2
+INFO RPI vc4.cpp:570 Sensor: ... Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+WARN V4L2 v4l2_videodevice.cpp:2064 /dev/video0[12:cap]: Dequeue timer of 1000000.00us has expired!
+ERROR RPI pipeline_base.cpp:1364 Camera frontend has timed out!
+ERROR RPI pipeline_base.cpp:1365 Please check that your camera sensor connector is attached securely.
+[isp] [stats] vf 0.00 fps (drops 0) | raw 0.00 fps (drops 0) | cpu 0.0% | rss 16864 kB | enc rejects 0   (repeated: no stall detection yet)
+
+== B. Pi B, cable reseated: 2 frames arrive, then the encoder refuses the caps (software bug, fixed)
+[isp] ERROR: gst: Internal data stream error. ... streaming stopped, reason not-negotiated (-4))
+[isp] [summary] 6 s | vf frames 2 drops 0 | raw frames 2 drops 0 | ...
+systemd: isp-channel.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+systemd: isp-channel.service: Scheduled restart job ...
+systemctl show isp-channel -p NRestarts  ->  NRestarts=720            (restart storm, fixed with backoff)
+
+== C. Pi B, after ~720 open/stream/close cycles the sensor stopped answering on I2C
+ov5647 10-0036: ov5647_read: i2c read error, reg: 100 = -5           (EIO: no ACK)
+ov5647 10-0036: Failed to program sensor mode: -5
+unicam fe801000.csi: stream on failed in subdev
+cam -c 1 --capture=30   ->  "Camera frontend has timed out!"         (libcamera's own tool: not our app)
+
+== D. Pi B, after a warm reboot (camera rail is NOT power-cycled by a reboot)
+ov5647 10-0036: ID High expected 0x56 got 0
+
+== E. Pi B, after a full power-cycle and reseat
+ov5647 10-0036: ov5647_read: i2c read error, reg: 300a = -110      (ETIMEDOUT: bus not responding)
+ov5647: probe of 10-0036 failed with error -110
+
+== F. Back on Pi A with the camera, ribbon and connectors all redone: clean probe, no I2C errors.
+   Conclusion: an intermittent contact in the ribbon/connector path (it followed the cable
+   handling, not a particular board). All later results are from this setup.
+cam -c 1 --capture=30  ->  ... (14.98 fps) cam0-stream0 seq: 000037 bytesused: 1920000

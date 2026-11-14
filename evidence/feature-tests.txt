@@ -1,0 +1,48 @@
+Feature tests on Raspberry Pi 4 (Rev 1.4) + OV5647, 2026-11-14.
+Commands run over SSH with the service stopped; output filtered to the relevant lines.
+run.sh = scripts used on the board: isp-channel --outdir /tmp/t --duration <s> <args>
+
+== 1. Copy path, 1080p30 + raw (video mode), 20 s:  isp-channel --raw video --no-zero-copy
+[isp] [stats] vf 30.00 fps (drops 0) | raw 30.00 fps (drops 0) | cpu 34.6% | rss 19904 kB | enc rejects 0
+[isp] [stats] app processing min 102 / avg 163 / max 588 us | sensor->app min 42508 / avg 45161 / max 49781 us | sensor->encoded min 81486 / avg 89546 / max 98008 us
+[isp] [summary] 20 s | vf frames 592 drops 0 | raw frames 592 drops 0 | rss baseline 19904 kB end 19904 kB (growth 0 kB)
+-rw-r--r--    1 root     root      19765084 seg-00000.mp4
+
+== 2. Zero-copy (dmabuf import), same settings:  isp-channel --raw video
+[isp] [stats] vf 29.99 fps (drops 0) | raw 29.99 fps (drops 0) | cpu 13.9% | rss 19776 kB | enc rejects 0
+[isp] [stats] app processing min 112 / avg 158 / max 218 us | sensor->app min 43519 / avg 46090 / max 51067 us | sensor->encoded min 80197 / avg 89507 / max 95926 us
+[isp] [summary] 20 s | vf frames 592 drops 0 | raw frames 592 drops 0 | rss baseline 19776 kB end 19776 kB (growth 0 kB)
+ffprobe of seg-00000.mp4 (on the laptop): codec_name=h264 profile=High level=40 width=1920 height=1080
+                                          r_frame_rate=30/1 nb_frames=592 duration=19.73
+
+== 3. Raw at full sensor mode (brief) + snapshot trigger at t=8 s:  isp-channel --raw full --trigger-file /tmp/snap
+[isp] stream 0: 1920x1080-YUV420 stride 1920 frameSize 3110400 buffers 6 colorspace sYCC
+[isp] stream 1: 2592x1944-SGBRG10_CSI2P stride 3264 frameSize 6345216 buffers 6 colorspace RAW
+[isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 6.9% | rss 23436 kB | enc rejects 0
+[isp] [stats] app processing min 102 / avg 194 / max 458 us | sensor->app min 84617 / avg 92103 / max 94489 us | sensor->encoded min 122915 / avg 131803 / max 141681 us
+[isp] snapshot written: /tmp/t/snap-000000.png
+[isp] raw written: /tmp/t/snap-000000.raw (6345216 bytes)
+[isp] [summary] 20 s | vf frames 305 drops 0 | raw frames 305 drops 0 | rss baseline 19520 kB end 23328 kB (growth 3808 kB)
+snap-000000.png  PNG image data, 1920 x 1080, 8-bit/color RGB
+snap-000000.txt  format=SGBRG10_CSI2P width=2592 height=1944 stride=3264 sequence=120 exposure_us=63835 analogue_gain=8.000
+(The +3.8 MB is the snapshot: libpng/zlib state and the snapshot thread's stack, allocated once.)
+
+== 4. Manual controls:  isp-channel --raw off --ae off --exposure 10000 --gain 2.0 --awb-mode daylight --brightness 0.1 --contrast 1.2
+[isp] control AeEnable = 0
+[isp] control ExposureTime = 10000 us
+[isp] control AnalogueGain = 2.00
+[isp] control Brightness = 0.10
+[isp] control Contrast = 1.20
+[isp] control AwbMode = daylight
+[isp] [meta] exposure 9995 us | gain 2.00 | colour gains R 1.27 B 1.47 | 4000 K | lux 31
+(Auto mode in the same scene: exposure 33216 us, gain 8.00, 3502 K. 9995 vs 10000 us: the
+ sensor sets exposure in whole line periods.)
+
+== 5. Control validation:  isp-channel --raw off --awb-mode bogus
+[isp] WARN: AWB mode 'bogus' not offered by this camera
+
+== 6. RTP/H.264 over UDP to the laptop, 10 s:  isp-channel --raw video --udp 192.168.1.101:5000
+laptop: nc -ul 5000 > udp.bin   ->  9827455 bytes in ~10 s (~7.9 Mbit/s = the configured 8 Mbit/s)
+
+== 7. CMA while running (raw full + viewfinder + encoder):
+CmaTotal: 262144 kB   CmaFree: 171656 kB   -> 88 MB in use (budget in rpi-config_git.bbappend: ~90 MB)

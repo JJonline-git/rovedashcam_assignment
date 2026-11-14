@@ -1,0 +1,109 @@
+### uname
+Linux raspberrypi4-64 6.6.63-v8 #1 SMP PREEMPT Fri Dec  6 10:10:05 UTC 2024 aarch64 GNU/Linux
+NAME="ISP Assignment (Poky based)"
+VERSION="5.0.21 (scarthgap)"
+### systemctl status
+* isp-channel.service - Camera ISP channel (libcamera -> bcm2835-isp -> H.264)
+     Loaded: loaded (/usr/lib/systemd/system/isp-channel.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2026-11-14 06:19:58 UTC; 25s ago
+   Main PID: 358 (isp-channel)
+      Tasks: 11 (limit: 9011)
+        CPU: 1.958s
+### cma (while running)
+MemTotal:        7956964 kB
+MemAvailable:    7715920 kB
+CmaTotal:         262144 kB
+CmaFree:          171656 kB
+### top
+Mem: 440992K used, 7515972K free, 9740K shrd, 5016K buff, 249612K cached
+CPU:   2% usr   0% sys   0% nic  97% idle   0% io   0% irq   0% sirq
+Load average: 0.09 0.06 0.01 2/170 379
+  PID  PPID USER     STAT   VSZ %VSZ %CPU COMMAND
+  358     1 root     S     877m  11%   2% /usr/bin/isp-channel --raw full --outdir /var/lib/isp-channel
+  378   355 root     R     3556   0%   1% top -b -n 1
+  258     1 systemd- S    89820   1%   0% /usr/lib/systemd/systemd-timesyncd
+  144     1 root     S    40624   1%   0% /usr/lib/systemd/systemd-journald
+  190     1 root     S    29208   0%   0% /usr/lib/systemd/systemd-udevd
+    1     0 root     S    19440   0%   0% {systemd} /sbin/init
+  207     1 systemd- S    17492   0%   0% /usr/lib/systemd/systemd-networkd
+  346   220 root     S    16192   0%   0% systemd-userwork: waiting...
+### dmesg camera
+[    0.027291] platform fe801000.csi: Fixed dependency cycle(s) with /soc/i2c0mux/i2c@1/ov5647@36
+[    5.774309] platform fe801000.csi: Fixed dependency cycle(s) with /soc/i2c0mux/i2c@1/ov5647@36
+[    5.983881] bcm2835-isp bcm2835-isp: Device node output[0] registered as /dev/video13
+[    6.038144] bcm2835-isp bcm2835-isp: Device node capture[0] registered as /dev/video14
+[    6.051777] bcm2835-codec bcm2835-codec: Device registered as /dev/video10
+[    6.071449] bcm2835-isp bcm2835-isp: Device node capture[1] registered as /dev/video15
+[    6.073259] bcm2835-codec bcm2835-codec: Loaded V4L2 decode
+[    6.084873] bcm2835-isp bcm2835-isp: Device node stats[2] registered as /dev/video16
+[    6.120689] bcm2835-isp bcm2835-isp: Register output node 0 with media controller
+[    6.129034] bcm2835-isp bcm2835-isp: Register capture node 1 with media controller
+[    6.137501] bcm2835-codec bcm2835-codec: Device registered as /dev/video11
+[    6.145059] bcm2835-isp bcm2835-isp: Register capture node 2 with media controller
+### config.txt
+gpu_mem=128
+enable_uart=1
+dtoverlay=vc4-kms-v3d,cma-256
+camera_auto_detect=0
+dtoverlay=ov5647
+### journal
+Nov 14 06:12:50 raspberrypi4-64 systemd[1]: Started Camera ISP channel (libcamera -> bcm2835-isp -> H.264).
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [0:00:07.364915531] [289]  INFO Camera camera_manager.cpp:327 libcamera v0.4.0+dirty (2026-11-13T20:01:03UTC)
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [0:00:07.416535586] [304]  WARN RPiSdn sdn.cpp:40 Using legacy SDN tuning - please consider moving SDN inside rpi.denoise
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [0:00:07.418791586] [304]  INFO RPI vc4.cpp:401 Registered camera /base/soc/i2c0mux/i2c@1/ov5647@36 to Unicam device /dev/media0 and ISP device /dev/media2
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] found 1 camera(s)
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   /base/soc/i2c0mux/i2c@1/ov5647@36
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] using ov5647
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] supported controls (22):
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AwbEnable                    [false..true]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   ColourGains                  [0.000000..32.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AwbMode                      [0..7]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   ColourTemperature            [100..100000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   Saturation                   [0.000000..32.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   StatsOutputEnable            [false..true]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   NoiseReductionMode           [0..4]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   FrameDurationLimits          [33333..120000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   ScalerCrop                   [(0, 0)/0x0..(65535, 65535)/65535x65535]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   Sharpness                    [0.000000..16.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   Brightness                   [-1.000000..1.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AeConstraintMode             [0..3]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AeExposureMode               [0..3]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   ExposureTime                 [0..66666]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AeFlickerMode                [0..1]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   ExposureValue                [-8.000000..8.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AeEnable                     [false..true]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AnalogueGain                 [1.000000..16.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AeFlickerPeriod              [100..1000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   Contrast                     [0.000000..32.000000]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   AeMeteringMode               [0..3]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp]   HdrMode                      [0..4]
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] sensor modes (SGBRG10_CSI2P): 640x480 1296x972 1920x1080 2592x1944
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [0:00:07.419539920] [289]  INFO Camera camera.cpp:1202 configuring streams: (0) 1920x1080-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [0:00:07.421048086] [304]  INFO RPI vc4.cpp:570 Sensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] stream 0: 1920x1080-YUV420 stride 1920 frameSize 3110400 buffers 6 colorspace sYCC
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] stream 1: 2592x1944-SGBRG10_CSI2P stride 3264 frameSize 6345216 buffers 6 colorspace RAW
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] 6 requests created
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] gst pipeline: appsrc name=src is-live=true format=time do-timestamp=false ! v4l2h264enc name=enc output-io-mode=dmabuf-import extra-controls="controls,video_bitrate=8000000,h264_i_frame_period=30,repeat_sequence_header=1" ! video/x-h264,level=(string)4,profile=(string)high ! h264parse config-interval=-1 ! tee name=t t. ! queue ! splitmuxsink location=/var/lib/isp-channel/seg-%05d.mp4 max-size-time=60000000000
+Nov 14 06:12:51 raspberrypi4-64 isp-channel[289]: [isp] running: ov5647 1920x1080@30 raw=full zero-copy=yes
+Nov 14 06:13:12 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 14.06 fps (drops 0) | raw 14.06 fps (drops 0) | cpu 4.0% | rss 19292 kB | enc rejects 0
+Nov 14 06:13:12 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 88 / avg 116 / max 248 us | sensor->app min 81320 / avg 81652 / max 83593 us | sensor->encoded min 101252 / avg 104608 / max 119358 us
+Nov 14 06:13:12 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.28 B 1.53 | 3911 K | lux 12
+Nov 14 06:13:17 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 4.0% | rss 19548 kB | enc rejects 0
+Nov 14 06:13:17 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 84 / avg 102 / max 131 us | sensor->app min 81293 / avg 81514 / max 83441 us | sensor->encoded min 102010 / avg 104120 / max 111509 us
+Nov 14 06:13:17 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.28 B 1.53 | 3919 K | lux 11
+Nov 14 06:13:22 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 3.6% | rss 19548 kB | enc rejects 0
+Nov 14 06:13:22 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 78 / avg 92 / max 140 us | sensor->app min 81329 / avg 81609 / max 83839 us | sensor->encoded min 101859 / avg 104129 / max 112046 us
+Nov 14 06:13:22 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.29 B 1.50 | 4008 K | lux 13
+Nov 14 06:13:27 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 3.8% | rss 19676 kB | enc rejects 0
+Nov 14 06:13:27 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 88 / avg 153 / max 239 us | sensor->app min 81309 / avg 81580 / max 84963 us | sensor->encoded min 101941 / avg 104193 / max 111804 us
+Nov 14 06:13:27 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.29 B 1.51 | 3996 K | lux 16
+Nov 14 06:13:32 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 3.8% | rss 19676 kB | enc rejects 0
+Nov 14 06:13:32 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 84 / avg 142 / max 239 us | sensor->app min 81323 / avg 81545 / max 85044 us | sensor->encoded min 102000 / avg 104083 / max 112831 us
+Nov 14 06:13:32 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.28 B 1.52 | 3935 K | lux 14
+Nov 14 06:13:37 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 3.8% | rss 19676 kB | enc rejects 0
+Nov 14 06:13:37 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 79 / avg 128 / max 238 us | sensor->app min 81311 / avg 81614 / max 84965 us | sensor->encoded min 101788 / avg 104165 / max 111973 us
+Nov 14 06:13:37 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.29 B 1.51 | 3971 K | lux 18
+Nov 14 06:13:42 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 3.8% | rss 19804 kB | enc rejects 0
+Nov 14 06:13:42 raspberrypi4-64 isp-channel[289]: [isp] [stats] app processing min 85 / avg 105 / max 253 us | sensor->app min 81277 / avg 81491 / max 83300 us | sensor->encoded min 102606 / avg 104138 / max 111538 us
+Nov 14 06:13:42 raspberrypi4-64 isp-channel[289]: [isp] [meta] exposure 63835 us | gain 8.00 | colour gains R 1.29 B 1.50 | 4000 K | lux 15
+Nov 14 06:13:47 raspberrypi4-64 isp-channel[289]: [isp] [stats] vf 15.63 fps (drops 0) | raw 15.63 fps (drops 0) | cpu 3.8% | rss 19804 kB | enc rejects 0
