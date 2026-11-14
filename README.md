@@ -81,7 +81,7 @@ sudo bmaptool copy isp-image-raspberrypi4-64.rootfs.wic.bz2 /dev/sdX
    - over SSH: `ssh root@<pi-ip>`;
    - or on the serial console: GPIO14/15, 115200 8N1.
 
-The service starts at boot and records to `/var/lib/isp-channel/seg-00000.mp4`, … in 60-second segments.
+The service starts at boot and records to `/var/lib/isp-channel/seg-00000.mp4` … `seg-00009.mp4` in 60-second segments. After the 10th segment it overwrites the oldest one (loop recording), so the disk never fills.
 
 ```sh
 systemctl status isp-channel
@@ -110,6 +110,7 @@ isp-channel --list-controls                                   # print the Contro
 | `--raw full\|video\|off` | raw stream at the largest sensor mode (the brief asks for this; it caps the rate at 15.6 fps), at the mode matching the viewfinder (keeps 30 fps), or none |
 | `--ae on\|off`, `--awb on\|off`, `--exposure US`, `--gain G`, `--brightness -1..1`, `--contrast C`, `--awb-mode NAME` | camera controls; each is checked against the camera's ControlInfoMap before it is used |
 | `--bitrate`, `--segment`, `--outdir` | encoder bitrate (default 8 Mbit/s), MP4 segment length, output folder |
+| `--max-files N` | loop recording: keep the newest N segments and overwrite the oldest (default 10, about 600 MB; 0 = keep all) |
 | `--no-zero-copy` | the encoder copies frames instead of importing the dmabuf |
 | `--stats SEC`, `--duration SEC` | stats interval, and stop after a set time |
 | `--trigger-file PATH` | take a snapshot when this file appears (default `/run/isp-channel/snapshot`) |

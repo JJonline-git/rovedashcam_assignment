@@ -82,6 +82,8 @@ struct encoder *encoder_start(const struct encoder_options *o, encoder_release_f
 	 *  - level=4: the Pi encoder needs an explicit level for 1080p30.
 	 *  - splitmuxsink: closes a complete .mp4 every segment. An mp4 is only playable once
 	 *    its index is written at the end, so a power cut loses only the current segment.
+ *    max-files=N turns the segments into a ring: after seg-(N-1) it overwrites seg-00000,
+ *    so the disk never fills (loop recording). Without it the rootfs filled in ~45 min.
 	 *  - leaky queue on the network branch: a slow network drops packets, never stalls recording.
 	 */
 	gchar *udp = o->udp_host
@@ -95,9 +97,9 @@ struct encoder *encoder_start(const struct encoder_options *o, encoder_release_f
 		"extra-controls=\"controls,video_bitrate=%u,h264_i_frame_period=%u,repeat_sequence_header=1\" "
 		"! video/x-h264,level=(string)4,profile=(string)high "
 		"! h264parse config-interval=-1 ! tee name=t "
-		"t. ! queue ! splitmuxsink location=%s/seg-%%05d.mp4 max-size-time=%" G_GUINT64_FORMAT " %s",
+		"t. ! queue ! splitmuxsink location=%s/seg-%%05d.mp4 max-size-time=%" G_GUINT64_FORMAT " max-files=%u %s",
 		o->zero_copy ? "output-io-mode=dmabuf-import" : "",
-		o->bitrate, o->fps, o->outdir, (guint64)o->segment_sec * GST_SECOND, udp);
+		o->bitrate, o->fps, o->outdir, (guint64)o->segment_sec * GST_SECOND, o->max_files, udp);
 	LOG("gst pipeline: %s", desc);
 
 	GError *err = NULL;

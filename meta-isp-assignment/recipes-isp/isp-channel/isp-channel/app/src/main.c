@@ -66,6 +66,7 @@ static void usage(void)
 	       "  --bitrate BPS          H.264 bitrate (default 8000000)\n"
 	       "  --outdir DIR           mp4 segments and snapshots (default .)\n"
 	       "  --segment SEC          mp4 segment length (default 60)\n"
+	       "  --max-files N          keep the newest N segments, overwrite the oldest (default 10, 0 = all)\n"
 	       "  --udp HOST:PORT        also stream RTP/H.264 over UDP\n"
 	       "  --no-zero-copy         encoder copies frames instead of importing the dmabuf\n"
 	       "  --duration SEC         stop after SEC seconds (default: run forever)\n"
@@ -83,7 +84,7 @@ static int on_off(const char *s)
 static int parse_args(int argc, char **argv, struct app_options *o)
 {
 	enum { CAMERA = 256, WIDTH, HEIGHT, FPS, RAW, BUFFERS, AE, AWB, EXPOSURE, GAIN, BRIGHTNESS,
-	       CONTRAST, AWBMODE, BITRATE, OUTDIR, SEGMENT, UDP, NOZC, DURATION, STATS, TRIGGER, LIST };
+	       CONTRAST, AWBMODE, BITRATE, OUTDIR, SEGMENT, MAXFILES, UDP, NOZC, DURATION, STATS, TRIGGER, LIST };
 	static const struct option opts[] = {
 		{ "camera", required_argument, NULL, CAMERA },     { "width", required_argument, NULL, WIDTH },
 		{ "height", required_argument, NULL, HEIGHT },     { "fps", required_argument, NULL, FPS },
@@ -94,6 +95,7 @@ static int parse_args(int argc, char **argv, struct app_options *o)
 		{ "contrast", required_argument, NULL, CONTRAST }, { "awb-mode", required_argument, NULL, AWBMODE },
 		{ "bitrate", required_argument, NULL, BITRATE },   { "outdir", required_argument, NULL, OUTDIR },
 		{ "segment", required_argument, NULL, SEGMENT },   { "udp", required_argument, NULL, UDP },
+		{ "max-files", required_argument, NULL, MAXFILES },
 		{ "no-zero-copy", no_argument, NULL, NOZC },       { "duration", required_argument, NULL, DURATION },
 		{ "stats", required_argument, NULL, STATS },       { "trigger-file", required_argument, NULL, TRIGGER },
 		{ "list-controls", no_argument, NULL, LIST },      { "help", no_argument, NULL, 'h' },
@@ -111,6 +113,8 @@ static int parse_args(int argc, char **argv, struct app_options *o)
 	o->enc.bitrate = 8000000;
 	o->enc.outdir = ".";
 	o->enc.segment_sec = 60;
+	/* 10 x 60 s x 8 Mbit/s = ~600 MB: fits in the image's 1 GiB of free rootfs space. */
+	o->enc.max_files = 10;
 	o->enc.udp_port = 5000;
 	o->enc.zero_copy = 1;
 	o->stats_sec = 5;
@@ -139,6 +143,7 @@ static int parse_args(int argc, char **argv, struct app_options *o)
 		case BITRATE:    o->enc.bitrate = atoi(optarg); break;
 		case OUTDIR:     o->enc.outdir = optarg; break;
 		case SEGMENT:    o->enc.segment_sec = atoi(optarg); break;
+		case MAXFILES:   o->enc.max_files = atoi(optarg); break;
 		case UDP: {
 			char *colon = strrchr(optarg, ':');
 			if (!colon || (size_t)(colon - optarg) >= sizeof(udp_host)) {

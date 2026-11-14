@@ -19,6 +19,7 @@ struct encoder_options {
 	unsigned bitrate;              /* bits/s */
 	const char *outdir;
 	unsigned segment_sec;          /* one .mp4 per segment, like a dash cam loop recorder */
+	unsigned max_files;            /* ring buffer of segments; 0 = keep all (fills the disk) */
 	const char *udp_host;          /* NULL = no network stream */
 	int udp_port;
 	int zero_copy;                 /* 1 = encoder imports our dmabuf directly */

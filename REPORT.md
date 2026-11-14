@@ -9,8 +9,8 @@
 | Item | Where |
 |---|---|
 | Source | this repository |
-| Image | `isp-image-raspberrypi4-64.rootfs-20261114053835.wic.bz2` (78 MB) |
-| Image SHA-256 | `95d029d490ffc213037a0c5ed14f983491b3a81c22a569982c8ebfb75d53bdb1` |
+| Image | `isp-image-raspberrypi4-64.rootfs-20261114101812.wic.bz2` (78 MB) |
+| Image SHA-256 | `77dd9edeebf191060d9e353cf80699234a40fc4eb78a244e0b866bcb9b062c2f` |
 | Image download | GitHub release [`v1.0`](https://github.com/JJonline-git/rovedashcam_assignment/releases/tag/v1.0) |
 | Screen recording | linked from the GitHub release (2–3 min) |
 | Board logs | `evidence/` (soak test, feature tests, board snapshot, hardware fault trail) |
@@ -218,6 +218,12 @@ The image built and booted first time, and the app compiled with no warnings. Fo
 - **Fix:** the camera, ribbon and both connectors were redone on the first Pi. After that the probe was clean and `cam` captured at 15 fps. All the measurements above are from that setup.
 - **Conclusion:** an intermittent contact in the ribbon/connector path; the fault followed the cable handling, not a particular board. Repeated stream starts on a marginal link probably pushed the sensor into a bad state. A warm reboot does not power-cycle the camera rail, so only a full power-off cleared it.
 
+**5. The disk filled up (found after reflashing)**
+- **Symptom:** after a few hours the service had restarted 16 times. The journal showed `No space left on device` from `filesink`, then exit code 2. `df` showed the rootfs at 100 %: 46 segments of about 30 MB each.
+- **Cause:** `splitmuxsink` kept every segment, while the image has 1 GiB of free rootfs space, so it filled after about 45 minutes. A dash cam has to loop-record: overwrite the oldest footage, never stop.
+- **Fix:** `splitmuxsink max-files=N` (option `--max-files`, default 10). After `seg-00009.mp4` it overwrites `seg-00000.mp4`, so recording uses at most about 600 MB (10 × 60 s × 8 Mbit/s).
+- **Lesson:** the 10-minute soak test was too short to catch this. Endurance tests must run longer than the time it takes to fill the storage.
+
 Small fixes found along the way:
 - The summary printed "rss baseline 0" for runs shorter than one stats window.
 - BusyBox `head` needs `-n 80`, not `-80`.
@@ -260,5 +266,5 @@ Small fixes found along the way:
 - **Full-resolution stills while recording at 30 fps**, by a mode switch on trigger or a second configuration.
 - **A camera health check:** detect the CSI-2 stall (problem 1) and power-cycle the sensor through its enable GPIO, instead of only exiting.
 - **Glass-to-glass latency test** (an LED blinking in view, against a photodiode or a high-speed phone video).
-- **Storage management:** delete the oldest segment when the disk is nearly full (loop recording), and a separate data partition.
+- **Better storage management:** loop recording is done with a fixed file count (`--max-files`). A product would size the ring from the free space, protect "event" clips from being overwritten, and record to a separate data partition that is grown to fill the SD card on first boot.
 - **RTSP server** (`gst-rtsp-server`) instead of raw RTP/UDP, for easier viewing.
