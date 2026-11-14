@@ -10,8 +10,13 @@ EnvironmentFile=-/etc/default/isp-channel
 ExecStart=/usr/bin/isp-channel $ISP_CHANNEL_ARGS
 # systemd stop sends SIGTERM; the app sends EOS so the last MP4 segment is finalised.
 TimeoutStopSec=15
+# Exit codes: 1 = setup failed, 2 = GStreamer error, 3 = no frames (stall watchdog).
+# Back off 2 s -> 60 s between restarts: a broken sensor or cable should not cause a tight
+# reopen loop (seen in testing: 720 restarts, then the OV5647 stopped answering on I2C).
 Restart=on-failure
-RestartSec=3
+RestartSec=2
+RestartSteps=5
+RestartMaxDelaySec=60
 # Creates /var/lib/isp-channel (recordings) and /run/isp-channel (snapshot trigger file).
 StateDirectory=isp-channel
 RuntimeDirectory=isp-channel

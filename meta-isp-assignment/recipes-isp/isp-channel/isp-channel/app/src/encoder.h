@@ -22,6 +22,7 @@ struct encoder_options {
 	const char *udp_host;          /* NULL = no network stream */
 	int udp_port;
 	int zero_copy;                 /* 1 = encoder imports our dmabuf directly */
+	const char *colorimetry;       /* GStreamer colorimetry of the ISP output, e.g. "1:4:7:1" */
 };
 
 /* One viewfinder frame. All planes are in the same dmabuf (true on the Pi). */

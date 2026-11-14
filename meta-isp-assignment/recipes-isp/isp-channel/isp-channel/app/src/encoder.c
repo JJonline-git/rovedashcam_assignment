@@ -117,6 +117,10 @@ struct encoder *encoder_start(const struct encoder_options *o, encoder_release_f
 		"width", G_TYPE_INT, (int)o->width,
 		"height", G_TYPE_INT, (int)o->height,
 		"framerate", GST_TYPE_FRACTION, (int)o->fps, 1, NULL);
+	/* v4l2h264enc only accepts fixed caps: without colorimetry the caps stay unfixed and
+	 * negotiation fails ("not-negotiated"). Tell it what the ISP really produced. */
+	if (o->colorimetry)
+		gst_caps_set_simple(caps, "colorimetry", G_TYPE_STRING, o->colorimetry, NULL);
 	gst_app_src_set_caps(GST_APP_SRC(e->appsrc), caps);
 	gst_caps_unref(caps);
 

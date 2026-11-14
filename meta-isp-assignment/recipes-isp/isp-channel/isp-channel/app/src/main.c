@@ -22,6 +22,9 @@
 #include "snapshot.h"
 #include "stats.h"
 
+/* No frame for this long = the sensor or CSI link has stalled (dmesg: "frontend timed out"). */
+#define STALL_TIMEOUT_SEC 5u
+
 static volatile sig_atomic_t g_stop;
 static volatile sig_atomic_t g_snapshot;
 
@@ -166,6 +169,18 @@ static int parse_args(int argc, char **argv, struct app_options *o)
 	return 0;
 }
 
+/*
+ * GStreamer colorimetry string for the ISP's output colour space. Format is
+ * range:matrix:transfer:primaries. The Pi ISP reports sYCC for the viewfinder:
+ * full range (1), BT.601 matrix (4), sRGB transfer (7), BT.709 primaries (1).
+ */
+static const char *colorimetry_for(const struct cam_stream_info *vi)
+{
+	if (vi->full_range)
+		return vi->rec709 ? "1:3:5:1" : "1:4:7:1";
+	return vi->rec709 ? "bt709" : "bt601";
+}
+
 /* Turn a camera frame into an encoder frame (no pixel is copied here). */
 static void to_encoder_frame(const struct cam *c, const struct cam_frame *f, struct encoder_frame *ef)
 {
@@ -213,6 +228,10 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
+	struct cam_stream_info vi;
+	cam_stream_info(cam, 0, &vi);
+	o.enc.colorimetry = colorimetry_for(&vi);
+
 	struct encoder *enc = encoder_start(&o.enc, on_encoder_release, cam);
 	if (!enc || cam_start(cam)) {
 		encoder_stop(enc);
@@ -234,6 +253,7 @@ int main(int argc, char **argv)
 	char b1[96], b2[96], b3[96];
 	const uint64_t t0 = monotonic_ns();
 	uint64_t last_stats = t0;
+	uint64_t last_frame_ns = t0;
 
 	counter_init(&vf_count);
 	counter_init(&raw_count);
@@ -245,6 +265,7 @@ int main(int argc, char **argv)
 		struct cam_frame f;
 
 		if (cam_wait_frame(cam, &f, 100) == 1) {
+			last_frame_ns = monotonic_ns();
 			counter_frame(&vf_count, f.vf.sequence);
 			if (f.has_raw)
 				counter_frame(&raw_count, f.raw.sequence);
@@ -281,6 +302,14 @@ int main(int argc, char **argv)
 		}
 
 		uint64_t now = monotonic_ns();
+		/* Stall watchdog: a dash cam that silently records nothing is the worst failure.
+		 * Exit non-zero so systemd restarts us (and the restart reopens the sensor). */
+		if (now - last_frame_ns >= STALL_TIMEOUT_SEC * 1000000000ull) {
+			ERR("no frame for %u s (sensor or CSI link stalled), exiting", STALL_TIMEOUT_SEC);
+			rc = 3;
+			break;
+		}
+
 		if (now - last_stats >= (uint64_t)o.stats_sec * 1000000000ull) {
 			double sec = (double)(now - last_stats) / 1e9;
 			proc_sample(&proc, &cpu, &rss_kb);
@@ -321,6 +350,8 @@ int main(int argc, char **argv)
 	encoder_stop(enc);
 	snapshot_wait();
 	proc_sample(&proc, &cpu, &rss_kb);
+	if (!rss_baseline)
+		rss_baseline = rss_kb;   /* run shorter than one stats window: no growth measured */
 	LOG("[summary] %.0f s | vf frames %llu drops %llu | raw frames %llu drops %llu | "
 	    "rss baseline %ld kB end %ld kB (growth %ld kB)",
 	    (double)(monotonic_ns() - t0) / 1e9,
